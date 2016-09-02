@@ -198,7 +198,7 @@ body {
 		display: none;
 	}
 
-	.active {
+	#active {
 		display: inline-block;
 	}
 

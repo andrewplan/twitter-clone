@@ -123,26 +123,30 @@ $( document ).ready( function() {
 
   // The Retweets/timestamp/Reply areas should also be hidden by default. These should only expand if you click on the tweet. Have the students use a jQuery animation to accomplish the reveal, similar to how it’s done on Twitter.com
 
-  // $( document ).on( 'click', '.icon .action-retweet span' , function() {
-  //   // event.preventDefault();
-  //   // $( this ).closest( '.status-icon-wrapper' ).show();
-  //   alert( "this works ");
-  // } );
+  $( document ).on( 'click', '.tweet-actions li:nth-child(2)' , function() {
+    $( this ).parents( '.content' ).find('#retweet-active').toggle();
+  } );
 
-  $( document ).on( 'click', '.tweet:not( .tweet-actions ul li )', function() {
-      $( this ).find( '.stats, .reply' ).slideDown( 'slow' );
+  $( document ).on( 'click', '.tweet-actions li:nth-child(3)' , function() {
+    $( this ).parents( '.content' ).find('#favorite-active').toggle();
+  } );
+
+  $( document ).on( 'click', '.tweet', function( event) {
+    if ( !$( 'li, this' ).is( event.target ) ) {
+      $( this ).find( '.stats, .reply' ).slideToggle();
+    }
   } );
 
 
 
   $( document ).mouseup( function (e) {
-    var containers = $( '.stats, .reply' );
-
-    if ( !containers.is( e.target ) // if the target of the click isn't the container...
-        && containers.has( e.target ).length === 0 ) // ... nor a descendant of the container
-    {
-        containers.slideUp();
-    }
+    // var containers = $( '.stats, .reply' );
+    //
+    // if ( !containers.is( e.target ) // if the target of the click isn't the container...
+    //     && containers.has( e.target ).length === 0 ) // ... nor a descendant of the container
+    // {
+    //     containers.slideUp();
+    // }
 
     if ( !tweetCompose.is( e.target ) && tweetCompose.has( e.target ).length === 0 )
     {
