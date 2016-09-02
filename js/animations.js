@@ -1,16 +1,21 @@
 $( document ).ready( function() {
 
   var tweetCompose = $( '.tweet-compose' );
+  var tweetControls = $( '#tweet-controls' );
   var charCount = $( '#char-count' );
   var tweetSubmit = $( '#tweet-submit' );
   var myFullName = $( '#myFullName' ).text();
   var myHandle = $( '#myHandle' ).text();
   var myAvatarSrc = 'img/alagoon.jpg';
+  var currentTime = new Date();
+  var currentTimeInISO = currentTime.toISOString();
+
+  jQuery("time.timeago").timeago();
 
   // When the user clicks on the textarea, the textarea should double in size and the character count and Tweet buttons should be revealed.
   tweetCompose.click( function() {
     $( this ).css( 'height', '5em' );
-    $( '#tweet-controls' ).css( 'display', 'block' );
+    tweetControls.show();
   } );
 
   // As the user types, the character count should decrease.
@@ -40,11 +45,18 @@ $( document ).ready( function() {
   tweetSubmit.click( function(){
     // gets tweet text and stores to a variable
     var tweetContent = $( '.tweet-compose' ).val();
+
     // prepends div containing tweet contents
     $( '#stream' ).prepend(
       '<div class="tweet">' +
         '<div class="content">' +
           '<img class="avatar" src="' + myAvatarSrc + '"/>' +
+          '<div class="status-icon-wrapper">' +
+            '<img class="status-icon" src="img/retweet-icon-1.png">' +
+          '</div>' +
+          '<div class="status-icon-wrapper">' +
+            '<img class="status-icon" src="img/favorite-status-icon.png">' +
+          '</div>' +
           '<strong class="fullname">' + myFullName + '</strong>' +
           '<span class="username">' + myHandle +  '</span>' +
           '<!-- BLACK DIAMOND: Implement the icons for when a tweet is favorited/retweeted in the upper right of the tweet. -->' +
@@ -82,7 +94,10 @@ $( document ).ready( function() {
             '<!-- BLACK DIAMOND: Make the timestamp below similar to how they look on Twitter (1h, 18m, 1m) and use the jQuery timeago plugin to make them automatic. -->' +
             '<!-- HINT: Refer to timeago documentation -->' +
             '<div class="time">' +
-              '1:04 PM - 19 Sep 13' +
+                '<time class="timeago" datetime="' + currentTimeInISO +
+                '">' +
+                    // currentTime +
+                '</time>' +
             '</div>' +
           '</div>' +
           '<div class="reply">' +
@@ -92,7 +107,49 @@ $( document ).ready( function() {
         '</div>' +
       '</div>'
     );
+    jQuery("time.timeago").timeago();
+
+    tweetCompose.val('');
+
   } );
+
+  // The tweet actions (Reply, Retweet, etc) should only show up when you hover over that individual tweet. Otherwise, they should be hidden.
+  $( document ).on( 'mouseenter', '.tweet', function() {
+      $( this ).find( '.tweet-actions' ).show();
+    } );
+  $( document ).on( 'mouseleave', '.tweet', function() {
+    $( this ).find( '.tweet-actions' ).hide();
+  } );
+
+  // The Retweets/timestamp/Reply areas should also be hidden by default. These should only expand if you click on the tweet. Have the students use a jQuery animation to accomplish the reveal, similar to how it’s done on Twitter.com
+
+  // $( document ).on( 'click', '.icon .action-retweet span' , function() {
+  //   // event.preventDefault();
+  //   // $( this ).closest( '.status-icon-wrapper' ).show();
+  //   alert( "this works ");
+  // } );
+
+  $( document ).on( 'click', '.tweet:not( .tweet-actions ul li )', function() {
+      $( this ).find( '.stats, .reply' ).slideDown( 'slow' );
+  } );
+
+
+
+  $( document ).mouseup( function (e) {
+    var containers = $( '.stats, .reply' );
+
+    if ( !containers.is( e.target ) // if the target of the click isn't the container...
+        && containers.has( e.target ).length === 0 ) // ... nor a descendant of the container
+    {
+        containers.slideUp();
+    }
+
+    if ( !tweetCompose.is( e.target ) && tweetCompose.has( e.target ).length === 0 )
+    {
+        tweetCompose.css( 'height', '2.5em' );
+        tweetControls.hide();
+    }
+  });
 
 
 
