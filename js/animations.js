@@ -1,5 +1,5 @@
 $( document ).ready( function() {
-
+  var tweets = [];
   var tweetCompose = $( '.tweet-compose' );
   var tweetControls = $( '#tweet-controls' );
   var charCount = $( '#char-count' );
@@ -11,6 +11,25 @@ $( document ).ready( function() {
   var currentTimeInISO = currentTime.toISOString();
 
   jQuery("time.timeago").timeago();
+  $( '.tweet-actions' ).animate( {opacity: 0}, 0 );
+
+  grabDataFromLocalStorage();
+
+  function grabDataFromLocalStorage() {
+    // if localStorage is not empty, parse it and store in listo.
+    if ( typeof localStorage[ 'allTweets' ] !== 'undefined' && localStorage[ 'allTweets' ] !== '' ) {
+      tweets = JSON.parse( localStorage[ 'allTweets' ] );
+      repopulateTweetStream( tweets );
+    }
+    // if localStorage is empty, set listo to equal []
+    else {
+      tweets = [];
+    }
+  }
+
+  function repopulateTweetStream() {
+
+  }
 
   // When the user clicks on the textarea, the textarea should double in size and the character count and Tweet buttons should be revealed.
   tweetCompose.click( function() {
@@ -115,10 +134,10 @@ $( document ).ready( function() {
 
   // The tweet actions (Reply, Retweet, etc) should only show up when you hover over that individual tweet. Otherwise, they should be hidden.
   $( document ).on( 'mouseenter', '.tweet', function() {
-      $( this ).find( '.tweet-actions' ).fadeIn();
+      $( this ).find( '.tweet-actions' ).animate( {opacity: 1}, 400, 'linear' );
     } );
   $( document ).on( 'mouseleave', '.tweet', function() {
-    $( this ).find( '.tweet-actions' ).fadeOut();
+    $( this ).find( '.tweet-actions' ).animate( {opacity: 0}, 200, 'linear' );
   } );
 
   // The Retweets/timestamp/Reply areas should also be hidden by default. These should only expand if you click on the tweet. Have the students use a jQuery animation to accomplish the reveal, similar to how it’s done on Twitter.com
@@ -145,18 +164,18 @@ $( document ).ready( function() {
         tweetCompose.css( 'height', '2.5em' );
         tweetControls.hide();
     }
-
-    // Implement the Bootstrap tooltips for when you hover over a user’s avatar image
-    $( '.avatar' ).tooltip(
-      {
-        trigger: 'hover'
-        , placement: 'bottom'
-      }
-    );
-
   });
 
+  // Implement the Bootstrap tooltips for when you hover over a user’s avatar image
+  $( '.avatar' ).tooltip(
+    {
+      trigger: 'hover'
+      , placement: 'bottom'
+    }
+  );
 
+  // Persist new tweets using local storage
+  // Persist new tweets using a service like parse https://parse.com/
 
 
 } );
