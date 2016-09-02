@@ -51,10 +51,10 @@ $( document ).ready( function() {
       '<div class="tweet">' +
         '<div class="content">' +
           '<img class="avatar" src="' + myAvatarSrc + '"/>' +
-          '<div class="status-icon-wrapper">' +
+          '<div id="favorite-active" class="status-icon-wrapper">' +
             '<img class="status-icon" src="img/retweet-icon-1.png">' +
           '</div>' +
-          '<div class="status-icon-wrapper">' +
+          '<div id="retweet-active" class="status-icon-wrapper">' +
             '<img class="status-icon" src="img/favorite-status-icon.png">' +
           '</div>' +
           '<strong class="fullname">' + myFullName + '</strong>' +
@@ -123,6 +123,13 @@ $( document ).ready( function() {
 
   // The Retweets/timestamp/Reply areas should also be hidden by default. These should only expand if you click on the tweet. Have the students use a jQuery animation to accomplish the reveal, similar to how it’s done on Twitter.com
 
+  $( document ).on( 'click', '.tweet', function( event) {
+    if ( !$( 'li, this' ).is( event.target ) ) {
+      $( this ).find( '.stats, .reply' ).slideToggle();
+    }
+  } );
+
+  // Implement the icons for when a tweet is favorited/retweeted in the upper right of the tweet.
   $( document ).on( 'click', '.tweet-actions li:nth-child(2)' , function() {
     $( this ).parents( '.content' ).find('#retweet-active').toggle();
   } );
@@ -130,13 +137,6 @@ $( document ).ready( function() {
   $( document ).on( 'click', '.tweet-actions li:nth-child(3)' , function() {
     $( this ).parents( '.content' ).find('#favorite-active').toggle();
   } );
-
-  $( document ).on( 'click', '.tweet', function( event) {
-    if ( !$( 'li, this' ).is( event.target ) ) {
-      $( this ).find( '.stats, .reply' ).slideToggle();
-    }
-  } );
-
 
 
   $( document ).mouseup( function (e) {
