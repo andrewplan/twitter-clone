@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
+		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 		<link rel="stylesheet" href="css/styles.css" type="text/css" />
 	</head>
 	<body>
@@ -11,7 +11,7 @@
 			<div id="dashboard">
 				<div id="profile-summary">
 					<div class="content">
-						<img class='avatar' src='img/alagoon.jpg' />
+						<img class='avatar' src='img/alagoon.jpg' data-title="@andrewplan" />
 						<p id="myFullName">Andrew Plan</p>
 						<p id="myHandle">@andrewplan</p>
 					</div>
@@ -44,7 +44,7 @@
 					<!-- HINT: jQuery ".prepend" method -->
 					<div class="tweet">
 						<div class="content">
-							<img class="avatar" src="img/damenleeturks.jpg" />
+							<img class="avatar" src="img/damenleeturks.jpg" data-title="@mybff"/>
 							<strong class="fullname">My BFF</strong>
 							<span class="username">@mybff</span>
 							<div id="favorite-active" class="status-icon-wrapper">
@@ -84,8 +84,8 @@
 
 										<!-- BLACK DIAMOND: Implement the Bootstrap tooltips for when you hover over a user’s avatar image -->
 										<!-- HINT: Bootstrap has good documentation =) -->
-										<img src="img/alagoon.jpg" />
-										<img src="img/vklimenko.jpg" />
+										<img class="avatar" src="img/alagoon.jpg" data-title="@andrewplan"/>
+										<img class="avatar" src="img/vklimenko.jpg" data-title="@iliketheletterV"/>
 									</div>
 								</div>
 
@@ -98,7 +98,7 @@
 								</div>
 							</div>
 							<div class="reply">
-								<img class="avatar" src="img/alagoon.jpg" />
+								<img class="avatar" src="img/alagoon.jpg" data-title="@andrewplan"/>
 								<textarea class="tweet-compose" placeholder="Reply to @mybff"/></textarea>
 							</div>
 						</div>
@@ -106,7 +106,7 @@
 
 					<div class="tweet">
 						<div class="content">
-							<img class="avatar" src="img/funwatercat.jpg" />
+							<img class="avatar" src="img/funwatercat.jpg" data-title="@theonion"/>
 							<strong class="fullname">The Onion</strong>
 							<span class="username">@theonion</span>
 							<div id="favorite-active" class="status-icon-wrapper">
@@ -135,8 +135,8 @@
 								</div>
 								<div class="users-interact">
 									<div>
-										<img src="img/jennyshen.jpg" />
-										<img src="img/damenleeturks.jpg" />
+										<img class="avatar" src="img/jennyshen.jpg" data-title="@HarvardBiz"/>
+										<img class="avatar" src="img/damenleeturks.jpg" data-title="@mybff"/>
 									</div>
 								</div>
 								<div class="time">
@@ -146,7 +146,7 @@
 								</div>
 							</div>
 							<div class="reply">
-								<img class="avatar" src="img/alagoon.jpg" />
+								<img class="avatar" src="img/alagoon.jpg" data-title="@andrewplan"/>
 								<textarea class="tweet-compose" placeholder="Reply to @mybff"/></textarea>
 							</div>
 						</div>
@@ -154,7 +154,7 @@
 
 					<div class="tweet">
 						<div class="content">
-							<img class="avatar" src="img/jennyshen.jpg" />
+							<img class="avatar" src="img/jennyshen.jpg" data-title="@HarvardBiz"/>
 							<strong class="fullname">Harvard Biz Review</strong>
 							<span class="username">@HarvardBiz</span>
 							<div id="favorite-active" class="status-icon-wrapper">
@@ -183,8 +183,8 @@
 								</div>
 								<div class="users-interact">
 									<div>
-										<img src="img/vklimenko.jpg" />
-										<img src="img/funwatercat.jpg" />
+										<img class="avatar" src="img/vklimenko.jpg" data-title="@iliketheletterV"/>
+										<img class="avatar" src="img/funwatercat.jpg" data-title="@theonion"/>
 									</div>
 								</div>
 								<div class="time">
@@ -194,7 +194,7 @@
 								</div>
 							</div>
 							<div class="reply">
-								<img class="avatar" src="img/alagoon.jpg" />
+								<img class="avatar" src="img/alagoon.jpg" data-title="@andrewplan"/>
 								<textarea class="tweet-compose" placeholder="Reply to @mybff"/></textarea>
 							</div>
 						</div>
@@ -204,6 +204,8 @@
 		</div><!-- #page-container -->
 		<script src="./js/jquery-2.0.3.min.js" charset="utf-8"></script>
 		<script src="./js/jquery.timeago.js" charset="utf-8"></script>
+		<script src="./js/tether.min.js" charset="utf-8"></script>
+		<script src="./js/bootstrap.min.js"></script>
 		<script src="./js/animations.js" charset="utf-8"></script>
 	</body>
 </html>

@@ -50,7 +50,7 @@ $( document ).ready( function() {
     $( '#stream' ).prepend(
       '<div class="tweet">' +
         '<div class="content">' +
-          '<img class="avatar" src="' + myAvatarSrc + '"/>' +
+          '<img class="avatar" src="' + myAvatarSrc + '" data-title="@andrewplan"/>' +
           '<div id="favorite-active" class="status-icon-wrapper">' +
             '<img class="status-icon" src="img/retweet-icon-1.png">' +
           '</div>' +
@@ -87,8 +87,8 @@ $( document ).ready( function() {
               '<div>' +
                 '<!-- BLACK DIAMOND: Implement the Bootstrap tooltips for when you hover over a user\’s avatar image -->' +
                 '<!-- HINT: Bootstrap has good documentation -->' +
-                '<img src="img/alagoon.jpg" />' +
-                '<img src="img/vklimenko.jpg" />' +
+                '<img class="avatar" src="img/alagoon.jpg" data-title="@andrewplan" />' +
+                '<img class="avatar" src="img/vklimenko.jpg" data-title="@iliketheletterV" />' +
               '</div>' +
             '</div>' +
             '<!-- BLACK DIAMOND: Make the timestamp below similar to how they look on Twitter (1h, 18m, 1m) and use the jQuery timeago plugin to make them automatic. -->' +
@@ -101,7 +101,7 @@ $( document ).ready( function() {
             '</div>' +
           '</div>' +
           '<div class="reply">' +
-            '<img class="avatar" src="img/alagoon.jpg" />' +
+            '<img class="avatar" src="img/alagoon.jpg" data-title="@andrewplan" />' +
             '<textarea class="tweet-compose" placeholder="Reply to @mybff"/></textarea>' +
           '</div>' +
         '</div>' +
@@ -115,10 +115,10 @@ $( document ).ready( function() {
 
   // The tweet actions (Reply, Retweet, etc) should only show up when you hover over that individual tweet. Otherwise, they should be hidden.
   $( document ).on( 'mouseenter', '.tweet', function() {
-      $( this ).find( '.tweet-actions' ).show();
+      $( this ).find( '.tweet-actions' ).fadeIn();
     } );
   $( document ).on( 'mouseleave', '.tweet', function() {
-    $( this ).find( '.tweet-actions' ).hide();
+    $( this ).find( '.tweet-actions' ).fadeOut();
   } );
 
   // The Retweets/timestamp/Reply areas should also be hidden by default. These should only expand if you click on the tweet. Have the students use a jQuery animation to accomplish the reveal, similar to how it’s done on Twitter.com
@@ -131,28 +131,29 @@ $( document ).ready( function() {
 
   // Implement the icons for when a tweet is favorited/retweeted in the upper right of the tweet.
   $( document ).on( 'click', '.tweet-actions li:nth-child(2)' , function() {
-    $( this ).parents( '.content' ).find('#retweet-active').toggle();
+    $( this ).parents( '.content' ).find('#retweet-active').fadeToggle();
   } );
 
   $( document ).on( 'click', '.tweet-actions li:nth-child(3)' , function() {
-    $( this ).parents( '.content' ).find('#favorite-active').toggle();
+    $( this ).parents( '.content' ).find('#favorite-active').fadeToggle();
   } );
 
-
+  // Tweet compose box returns to initial height and controls hide once user clicks outside the box.
   $( document ).mouseup( function (e) {
-    // var containers = $( '.stats, .reply' );
-    //
-    // if ( !containers.is( e.target ) // if the target of the click isn't the container...
-    //     && containers.has( e.target ).length === 0 ) // ... nor a descendant of the container
-    // {
-    //     containers.slideUp();
-    // }
-
     if ( !tweetCompose.is( e.target ) && tweetCompose.has( e.target ).length === 0 )
     {
         tweetCompose.css( 'height', '2.5em' );
         tweetControls.hide();
     }
+
+    // Implement the Bootstrap tooltips for when you hover over a user’s avatar image
+    $( '.avatar' ).tooltip(
+      {
+        trigger: 'hover'
+        , placement: 'bottom'
+      }
+    );
+
   });
 
 
