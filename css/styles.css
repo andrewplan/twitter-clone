@@ -127,7 +127,9 @@ body {
 		margin-bottom: 1em;
 		box-sizing: border-box;
 	}
+	 /*Initially, the Tweet button and the character count button should be hidden (CSS).*/
 		#tweet-controls {
+			display: none;
 			text-align: right;
 		}
 			#tweet-controls div {
@@ -258,5 +260,3 @@ body {
 				top: 0;
 				left: 0;
 			}
-
-
